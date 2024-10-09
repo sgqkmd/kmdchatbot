@@ -1,10 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.SemanticKernel;
 
 namespace SemanticKernelLibrary
 {
@@ -12,7 +7,6 @@ namespace SemanticKernelLibrary
     {
         public static IServiceCollection AddSemanticKernelLibrary(this IServiceCollection services)
         {
-            
 
             return services;
         }
