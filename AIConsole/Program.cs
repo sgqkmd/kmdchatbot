@@ -1,19 +1,17 @@
 ﻿using AIConsole;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Plugins.OpenApi;
 using SemanticKernelLibrary;
-using System;
-using System.Linq.Expressions;
 using System.Net.Http.Headers;
 
 
 var config = new ConfigurationBuilder()
-    .AddJsonFile("applicationsettings.json").Build();
+    .AddJsonFile("applicationsettings.json")
+    .Build();
 
 var token = config["studica:bearer-token"];
 var httpclient = new HttpClient();
@@ -72,10 +70,9 @@ while (true)
 {
     Console.Write("User > ");
     var input = Console.ReadLine() ?? "";
-    input = input == "" ? "Give me the top 5 students based on absence for school code A02332" : input;
     history.AddUserMessage(input);
 
-    ChatMessageContent answer = null;
+    ChatMessageContent? answer;
     try
     {
         answer = await chatCompletionService.GetChatMessageContentAsync(
