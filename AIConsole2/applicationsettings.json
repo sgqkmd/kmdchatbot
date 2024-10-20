@@ -1,0 +1,18 @@
+{
+    "openai": {
+        "name": "",
+        "apikey": "",
+        "endpoint": ""
+    },
+    "studica": {
+        "url": "",
+        "bearer-token": "",
+        "subscription-key": ""
+    },
+    "studica-programmes": {
+        "url": ""
+    },
+    "petstore": {
+        "url": ""
+    }
+}
