@@ -21,8 +21,10 @@ if (peter != null)
         Console.Write("User > ");
         var input = Console.ReadLine() ?? "";
 
-        var answer = peter.Ask(input);
-
-        Console.WriteLine(answer);
+        await foreach (var answer in peter.Ask(input))
+        {
+            Console.Write(answer);
+            await Task.Delay(100);
+        }
     }
 }

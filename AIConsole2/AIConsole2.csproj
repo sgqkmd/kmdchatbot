@@ -17,4 +17,10 @@
     <ProjectReference Include="..\SemanticKernelLibrary\SemanticKernelLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="applicationsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
