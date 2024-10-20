@@ -1,8 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.SemanticKernel.ChatCompletion;
-using Microsoft.SemanticKernel.Connectors.OpenAI;
-using Microsoft.SemanticKernel;
 using SemanticKernelLibrary;
 
 var config = new ConfigurationBuilder()
@@ -11,20 +8,20 @@ var config = new ConfigurationBuilder()
 
 var serviceCollection = new ServiceCollection();
 
-await serviceCollection.AddGeorge(config);
+await serviceCollection.AddPeter(config);
 
 var service = serviceCollection.BuildServiceProvider();
 
-var george = service.GetService<IUVAssistant>();
+var peter = service.GetService<IUVAssistant>();
 
-if (george != null)
+if (peter != null)
 {
     while (true)
     {
         Console.Write("User > ");
         var input = Console.ReadLine() ?? "";
 
-        var answer = george.Ask(input);
+        var answer = peter.Ask(input);
 
         Console.WriteLine(answer);
     }

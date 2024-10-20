@@ -5,7 +5,7 @@ using Microsoft.SemanticKernel.Connectors.OpenAI;
 
 namespace SemanticKernelLibrary
 {
-    public class George : IUVAssistant
+    public class Peter : IUVAssistant
     {
         private readonly IChatCompletionService _chatCompletionService;
         private readonly Kernel _kernel;
@@ -13,15 +13,12 @@ namespace SemanticKernelLibrary
 
         public ChatHistory History { get; set; } =
             [
-                new(AuthorRole.System, "Always assume school code should be A02332"),
-                new(AuthorRole.System, "Always include a specific studentid when making requests for absence"),
-                new(AuthorRole.System, "Set paramter OnlyAbsenceReports to true when making requests for absence"),
-                new(AuthorRole.System, "Set StartDateFrom to 2024-01-01 and StartDateTo to 2024-12-31 when making requests for educational programmes"),
-                new(AuthorRole.System, "Set pagesize to 1000 when this property is present in a request"),
-                new(AuthorRole.System, "Ignore absence records with the status Not Registered when processing absence registration records")
+                new(AuthorRole.System, "You always end your sentences with: And that's all she wrote...!"),
+                new(AuthorRole.User, "Hello there"),
+                new(AuthorRole.Assistant, "Hi how can i help you? And that's all she wrote...!")
             ];
 
-        public George([FromKeyedServices("GeorgeKernel")] Kernel kernel)
+        public Peter([FromKeyedServices("PeterKernel")] Kernel kernel)
         {
             _kernel = kernel;
             _chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
@@ -63,7 +60,7 @@ namespace SemanticKernelLibrary
             }
 
             History.Add(answer);
-            yield return $"George > {answer}";
+            yield return $"Peter > {answer}";
         }
     }
 }

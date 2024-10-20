@@ -1,18 +1,34 @@
-﻿using Azure.AI.OpenAI;
-using Azure.Core.Extensions;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Plugins.OpenApi;
 using SemanticKernelLibrary.Plugins;
-using System.Net.Http;
 using System.Net.Http.Headers;
 
 namespace SemanticKernelLibrary
 {
     public static class DependencyInject
     {
+        public static async Task<IServiceCollection> AddPeter(this IServiceCollection services, IConfiguration config)
+        {
+            services.AddSingleton<TimeInformationPlugin>();
+            services.AddKeyedTransient("PeterKernel", (sp, key) =>
+            {
+                var kernelBuilder = Kernel.CreateBuilder().AddAzureOpenAIChatCompletion(
+                config["openai:name"],
+                config["openai:endpoint"],
+                config["openai:apikey"]
+                );
+                kernelBuilder.Plugins.AddFromObject(sp.GetRequiredService<TimeInformationPlugin>());
+
+                return kernelBuilder.Build();
+            });
+
+            services.AddTransient<IUVAssistant, Peter>();
+
+            return services;
+        }
+
         public static async Task<IServiceCollection> AddGeorge(this IServiceCollection services, IConfiguration config)
         {
             services.AddSingleton<TimeInformationPlugin>();
@@ -38,15 +54,16 @@ namespace SemanticKernelLibrary
             services.AddKeyedSingleton("StudicaAbsencePlugin", studicaAbsencePlugin);
 
 
-            services.AddKeyedTransient<Kernel>("GeorgeKernel", (sp, key) =>
+            services.AddKeyedTransient("GeorgeKernel", (sp, key) =>
             {
-                KernelPluginCollection pluginCollection = [];
-                pluginCollection.AddFromObject(sp.GetRequiredService<TimeInformationPlugin>());
-                pluginCollection.AddFromObject(sp.GetRequiredService<StudicaUiPlugin>());
-                pluginCollection.AddFromObject(sp.GetRequiredKeyedService<KernelPlugin>("StudicaStudentsPlugin"), "students");
-                pluginCollection.AddFromObject(sp.GetRequiredKeyedService<KernelPlugin>("StudicaAbsencePlugin"), "absence");
+                var kernelBuilder = Kernel.CreateBuilder();
 
-                return new Kernel(sp, pluginCollection);
+                kernelBuilder.Plugins.AddFromObject(sp.GetRequiredService<TimeInformationPlugin>());
+                kernelBuilder.Plugins.AddFromObject(sp.GetRequiredService<StudicaUiPlugin>());
+                kernelBuilder.Plugins.AddFromObject(sp.GetRequiredKeyedService<KernelPlugin>("StudicaStudentsPlugin"), "students");
+                kernelBuilder.Plugins.AddFromObject(sp.GetRequiredKeyedService<KernelPlugin>("StudicaAbsencePlugin"), "absence");
+
+                return kernelBuilder.Build();
             });
 
             services.AddTransient<IUVAssistant, George>();
