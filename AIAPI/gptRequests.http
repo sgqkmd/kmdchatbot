@@ -1,0 +1,6 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+POST https://localhost:7179/gpt/ask
+Content-Type: application/json
+{
+    "Q" : "Describe in 5 words a dog"
+}
