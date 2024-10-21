@@ -1,15 +1,10 @@
 ﻿using Microsoft.SemanticKernel;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AIConsole
 {
-    internal class StudicaUiPlugin
+    public class StudicaUiPlugin
     {
         [KernelFunction]
         [Description("Show the absence page of a student in the Studica UI.")]

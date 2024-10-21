@@ -63,7 +63,9 @@ namespace SemanticKernelLibrary
             }
 
             History.Add(answer);
-            yield return $"George > {answer}";
+            yield return $"""
+                    Peter > {answer}
+                    """;
         }
     }
 }

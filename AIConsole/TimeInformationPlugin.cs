@@ -1,6 +1,5 @@
 ﻿using Microsoft.SemanticKernel;
 using System.ComponentModel;
-using System.Text.Json.Serialization;
 
 namespace AIConsole
 {

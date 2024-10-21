@@ -1,13 +1,10 @@
 ﻿using AIConsole;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Plugins.OpenApi;
-using SemanticKernelLibrary;
 using System.Net.Http.Headers;
-
 
 var config = new ConfigurationBuilder()
     .AddJsonFile("applicationsettings.json")

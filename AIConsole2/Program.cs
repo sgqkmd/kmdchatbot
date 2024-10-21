@@ -24,7 +24,6 @@ if (peter != null)
         await foreach (var answer in peter.Ask(input))
         {
             Console.Write(answer);
-            await Task.Delay(100);
         }
     }
 }
